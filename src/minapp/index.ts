@@ -2,7 +2,7 @@ import { LogLevel } from 'consola'
 import _ from 'lodash'
 
 import logger from '../helpers/logger'
-import { SDK, SDKOptions } from '../types/minapp'
+import { SDKOptions } from '../types/minapp'
 import { AuthAPI, code2Session } from './auth'
 
 export const defaultMinAppSDKOptions: SDKOptions = {
@@ -46,7 +46,11 @@ export class MinAppSDK {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  create(appID: string, secret: string, options?: Partial<SDKOptions>): SDK {
+  create(
+    appID: string,
+    secret: string,
+    options?: Partial<SDKOptions>
+  ): MinAppSDK {
     return new MinAppSDK(options).init(appID, secret)
   }
 }
