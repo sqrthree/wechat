@@ -4,6 +4,7 @@ import _ from 'lodash'
 import logger from '../helpers/logger'
 import { SDKOptions } from '../types/minapp'
 import { AuthAPI, code2Session } from './auth'
+import { MessageAPI, send } from './message'
 
 export const defaultMinAppSDKOptions: SDKOptions = {
   debug: false,
@@ -18,11 +19,17 @@ export class MinAppSDK {
 
   auth: AuthAPI
 
+  subscribeMessage: MessageAPI
+
   constructor(options?: Partial<SDKOptions>) {
     this.options = _.defaults(options, defaultMinAppSDKOptions)
 
     this.auth = {
       code2Session: code2Session.bind(this),
+    }
+
+    this.subscribeMessage = {
+      send: send.bind(this),
     }
   }
 

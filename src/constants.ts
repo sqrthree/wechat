@@ -2,6 +2,8 @@ export const MINAPP_API_HOST = 'https://api.weixin.qq.com'
 
 export const MINAPP_AUTH_CODE2SESSION = '/sns/jscode2session'
 
+export const MINAPP_SUBSCRIBEMESSAGE_SEND = '/cgi-bin/message/subscribe/send'
+
 export const MINAPP_ERROR_MESSAGE = {
   '-1': '系统繁忙',
 

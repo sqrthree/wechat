@@ -12,14 +12,6 @@ export interface Code2SessionResponse extends ErrorResponse {
   unionid?: string
 }
 
-export interface Code2Session {
-  (code: string, grantType?: GrantType): Promise<Code2SessionResponse>
-}
-
-export interface AuthAPI {
-  code2Session: Code2Session
-}
-
 export async function code2Session(
   this: SDK,
   code: string,
@@ -27,7 +19,7 @@ export async function code2Session(
 ): Promise<Code2SessionResponse> {
   const url = `${MINAPP_API_HOST}${MINAPP_AUTH_CODE2SESSION}`
 
-  logger.debug('call code2Session api.', { code, grantType })
+  logger.debug('call auth.code2Session api.', { code, grantType })
 
   return request.get<Code2SessionResponse>(url, {
     appid: this.appID,
@@ -35,4 +27,11 @@ export async function code2Session(
     js_code: code,
     grantType,
   })
+}
+
+export interface AuthAPI {
+  code2Session: (
+    code: string,
+    grantType?: GrantType
+  ) => Promise<Code2SessionResponse>
 }
