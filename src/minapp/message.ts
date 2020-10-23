@@ -32,7 +32,10 @@ export async function send(
 
   logger.debug('call subscribeMessage.send api.', payload)
 
-  return request.post<ErrorResponse>(url, payload)
+  return request.post<ErrorResponse>(
+    `${url}?access_token=${payload.accessToken}`,
+    payload
+  )
 }
 
 export interface MessageAPI {
