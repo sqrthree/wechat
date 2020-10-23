@@ -32,7 +32,7 @@ export async function send(
 
   logger.debug('call subscribeMessage.send api.', payload)
 
-  return request.get<ErrorResponse>(url, payload)
+  return request.post<ErrorResponse>(url, payload)
 }
 
 export interface MessageAPI {
