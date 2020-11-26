@@ -3,8 +3,8 @@ import _ from 'lodash'
 import { MINAPP_API_HOST, MINAPP_SUBSCRIBEMESSAGE_SEND } from '../constants'
 import logger from '../helpers/logger'
 import request from '../helpers/request'
-import { SDK } from '../types/minapp'
 import { ErrorResponse } from '../types/request'
+import { SDK } from './types'
 
 export interface SendPayload {
   accessToken: string

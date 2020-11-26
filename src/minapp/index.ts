@@ -2,9 +2,9 @@ import { LogLevel } from 'consola'
 import _ from 'lodash'
 
 import logger from '../helpers/logger'
-import { SDKOptions } from '../types/minapp'
 import { AuthAPI, code2Session } from './auth'
 import { MessageAPI, send } from './message'
+import { SDKOptions } from './types'
 
 export const defaultMinAppSDKOptions: SDKOptions = {
   debug: false,
