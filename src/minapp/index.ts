@@ -4,6 +4,8 @@ import _ from 'lodash'
 import logger from '../helpers/logger'
 import { AuthAPI, code2Session } from './auth'
 import { MessageAPI, send } from './message'
+import { decrypt, SensitiveAPI } from './sensitive'
+import { SignatureAPI, verifySensitiveSignature } from './signature'
 import { SDKOptions } from './types'
 
 export const defaultMinAppSDKOptions: SDKOptions = {
@@ -21,8 +23,14 @@ export class MinAppSDK {
 
   subscribeMessage: MessageAPI
 
+  sensitive: SensitiveAPI
+
+  signature: SignatureAPI
+
   constructor(options?: Partial<SDKOptions>) {
     this.options = _.defaults(options, defaultMinAppSDKOptions)
+
+    logger.level = this.options.debug ? LogLevel.Verbose : LogLevel.Warn
 
     this.auth = {
       code2Session: code2Session.bind(this),
@@ -30,6 +38,14 @@ export class MinAppSDK {
 
     this.subscribeMessage = {
       send: send.bind(this),
+    }
+
+    this.sensitive = {
+      decrypt: decrypt.bind(this),
+    }
+
+    this.signature = {
+      verifySensitiveSignature: verifySensitiveSignature.bind(this),
     }
   }
 
@@ -43,9 +59,7 @@ export class MinAppSDK {
   }
 
   config(options: Partial<SDKOptions>): MinAppSDK {
-    if (this.options) {
-      this.options = _.assign(this.options, options)
-    }
+    this.options = _.assign(this.options, options)
 
     logger.level = this.options.debug ? LogLevel.Verbose : LogLevel.Warn
 
