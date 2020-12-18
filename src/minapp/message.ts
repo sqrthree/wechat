@@ -3,7 +3,6 @@ import _ from 'lodash'
 import { MINAPP_API_HOST, MINAPP_SUBSCRIBEMESSAGE_SEND } from '../constants'
 import logger from '../helpers/logger'
 import request from '../helpers/request'
-import { ErrorResponse } from '../types/request'
 import { SDK } from './types'
 
 export interface SendPayload {
@@ -17,10 +16,7 @@ export interface SendPayload {
   lang?: string
 }
 
-export async function send(
-  this: SDK,
-  payload: SendPayload
-): Promise<ErrorResponse> {
+export async function send(this: SDK, payload: SendPayload): Promise<void> {
   const url = `${MINAPP_API_HOST}${MINAPP_SUBSCRIBEMESSAGE_SEND}`
 
   _.assign(payload, {
@@ -32,12 +28,12 @@ export async function send(
 
   logger.debug('call subscribeMessage.send api.', payload)
 
-  return request.post<ErrorResponse>(
+  return request.post<void>(
     `${url}?access_token=${payload.accessToken}`,
     payload
   )
 }
 
 export interface MessageAPI {
-  send: (payload: SendPayload) => Promise<ErrorResponse>
+  send: (payload: SendPayload) => Promise<void>
 }

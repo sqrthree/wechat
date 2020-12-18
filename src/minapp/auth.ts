@@ -1,12 +1,11 @@
 import { MINAPP_API_HOST, MINAPP_AUTH_CODE2SESSION } from '../constants'
 import logger from '../helpers/logger'
 import request from '../helpers/request'
-import { ErrorResponse } from '../types/request'
 import { SDK } from './types'
 
 type GrantType = 'authorization_code'
 
-export interface Code2SessionResponse extends ErrorResponse {
+export interface Code2SessionResponse {
   openid: string
   session_key: string
   unionid?: string

@@ -2,12 +2,11 @@ import got, { Options } from 'got'
 import _ from 'lodash'
 import querystring from 'querystring'
 
-import { ErrorResponse } from '../types/request'
 import { catchRequestError } from './errors'
 import logger from './logger'
 
 type RequestMethod = 'get' | 'post' | 'put' | 'patch' | 'delete'
-type RequestHandler = <T extends ErrorResponse>(
+type RequestHandler = <T>(
   url: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any,
@@ -15,7 +14,7 @@ type RequestHandler = <T extends ErrorResponse>(
 ) => Promise<T>
 
 const request: Record<RequestMethod, RequestHandler> = {
-  get<T extends ErrorResponse>(
+  get<T>(
     url: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
@@ -51,7 +50,7 @@ const request: Record<RequestMethod, RequestHandler> = {
       })
     )
   },
-  post<T extends ErrorResponse>(
+  post<T>(
     url: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
@@ -85,7 +84,7 @@ const request: Record<RequestMethod, RequestHandler> = {
       })
     )
   },
-  put<T extends ErrorResponse>(
+  put<T>(
     url: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
@@ -119,7 +118,7 @@ const request: Record<RequestMethod, RequestHandler> = {
       })
     )
   },
-  patch<T extends ErrorResponse>(
+  patch<T>(
     url: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,
@@ -153,7 +152,7 @@ const request: Record<RequestMethod, RequestHandler> = {
       })
     )
   },
-  delete<T extends ErrorResponse>(
+  delete<T>(
     url: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any,

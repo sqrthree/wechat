@@ -9,19 +9,17 @@ export function throwError(name: string, message: string): void {
   throw err
 }
 
-export function catchRequestError<T extends ErrorResponse>(
-  action: Promise<T>
-): Promise<T> {
-  return action.then((response) => {
-    if (response.errcode !== undefined && response.errcode !== 0) {
-      const friendlyMessage = MINAPP_ERROR_MESSAGE[`${response.errcode}`]
-      const message = `${response.errcode}: ${
-        friendlyMessage || response.errmsg
-      }`
+export function catchRequestError<T>(action: Promise<T>): Promise<T> {
+  return action.then((response: unknown) => {
+    const { errcode, errmsg } = response as ErrorResponse
 
-      throw new Error(message)
+    if (errcode !== undefined && errcode !== 0) {
+      const friendlyMessage = MINAPP_ERROR_MESSAGE[`${errcode}`]
+      const message = `${errcode}: ${friendlyMessage || errmsg}`
+
+      throwError(`${errcode}`, message)
     }
 
-    return response
+    return response as T
   })
 }
