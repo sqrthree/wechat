@@ -4,6 +4,9 @@ export const MINAPP_AUTH_CODE2SESSION = '/sns/jscode2session'
 
 export const MINAPP_SUBSCRIBEMESSAGE_SEND = '/cgi-bin/message/subscribe/send'
 
+export const MINAPP_UNIFORMMESSAGE_SEND =
+  '/cgi-bin/message/wxopen/template/uniform_send'
+
 export const MINAPP_ERROR_MESSAGE = {
   '-1': '系统繁忙',
 

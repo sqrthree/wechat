@@ -3,7 +3,12 @@ import _ from 'lodash'
 
 import logger from '../helpers/logger'
 import { AuthAPI, code2Session } from './auth'
-import { MessageAPI, send } from './message'
+import {
+  sendSubscribeMessage,
+  sendUniformMessage,
+  SubscribeMessageAPI,
+  UniformMessageAPI,
+} from './message'
 import { decrypt, SensitiveAPI } from './sensitive'
 import { SignatureAPI, verifySensitiveSignature } from './signature'
 import { SDKOptions } from './types'
@@ -21,7 +26,9 @@ export class MinAppSDK {
 
   auth: AuthAPI
 
-  subscribeMessage: MessageAPI
+  subscribeMessage: SubscribeMessageAPI
+
+  uniformMessage: UniformMessageAPI
 
   sensitive: SensitiveAPI
 
@@ -37,7 +44,11 @@ export class MinAppSDK {
     }
 
     this.subscribeMessage = {
-      send: send.bind(this),
+      send: sendSubscribeMessage.bind(this),
+    }
+
+    this.uniformMessage = {
+      send: sendUniformMessage.bind(this),
     }
 
     this.sensitive = {
